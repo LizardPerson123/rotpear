@@ -13,6 +13,9 @@ async function start() {
 
 let id = 1
 
+console.log("Version 1.00")
+
 GetHighScore()
 ApplyMode()
 ApplyComicSans()
+
