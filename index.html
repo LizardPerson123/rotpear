@@ -13,13 +13,17 @@
 <body>
   <div class="center">
     <h1>Rotting Pears</h1>
+    <div id="options">
+      <button onclick="toggleMode()" id="modeButton" style="background-color: gray;">Switch To Dark Mode</button>
+    </div>
     <p id="subtext" style="color: darkgoldenrod;">It Exists!</p>
 
     <button style="background-color: #2e4ff2;" onclick="window.open('games.html', '_self')">Games</button> 
     <button style="background-color: blueviolet;" onclick="window.open('about.html', '_self')">About</button>
-    <button style="background-color: black; color: white;" onclick="window.open('settings.html', '_self')">Settings</button>
+    <button id="darkButton" style="background-color: black; color: white;" onclick="window.open('settings.html', '_self')">Settings</button>
   </div>
   <script src="utility.js"></script>
   <script src="main.js"></script>
+  <script src="modemanager.js"></script>
 </body>
 </html>

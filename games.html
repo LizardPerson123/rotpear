@@ -11,11 +11,15 @@
 
 </head>
 <body>
+  <div id="options">
+      <button onclick="toggleMode()" id="modeButton" style="background-color: gray;">Switch To Light Mode</button>
+    </div>
   <div class="center">
     <h1>Games</h1>
     <p style="color: darkgoldenrod;">They Might Be Fun!</p>
-    <button style="background-color: green;">Ebola Words</button>
+    <button style="background-color: green;" onclick="window.open('eb', '_self')">Ebola Words</button>
   </div>
   <script src="utility.js"></script>
+  <script src="modemanager.js"></script>
 </body>
 </html>
