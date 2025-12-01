@@ -3,34 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ebola Words</title>
+  <title>Rotting Pears</title>
   <link rel="stylesheet" href="main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
-  <div class="header">
-    <h1>Ebola Words (Beta 1.4)</h1>
-    <p class="introText">Click On The Red Words To Cure Them Of Ebola! Don't Let 20 Or More Words Get Ebola!</p>
-    <p class="introText">Ebola Spreads Faster The More Words That Have It!</p>
-    <p class="infoText" id="score">Score: 0</p>
-    <p class="infoText" id="ebola">Words With Ebola: 0</p>
-    <p class="infoText" id="highscore">High Score: 0</p>
-    <div id="options">
-      <button class="option altChange" id="modeButton" onclick="ChangeMode()">Change Mode</button>
-      <button class="option altChange" id="comicSansToggle" onclick="ToggleComicSans()">Toggle Comic Sans</button>
-      <button class="option altChange" id="leaderboardOpen" onclick="window.open('/leaderboard.html', '_self')">Leaderboard</button>
-      <button class="option altChange" id="backToRotpear" onclick="window.open('../', '_self')">Back</button>
-    </div>
+  <div class="center">
+    <h1>Rotting Pears</h1>
+    <p id="subtext" style="color: darkgoldenrod;">It Exists!</p>
+    <a href="/games">Games</a>
   </div>
-  <div id="ebolaCanvas">
-    <a id="start" style="text-decoration: none;" href="javascript:let text = start().then(value => text = value)">Click To Start</a>
-    <noscript>Please Enable Javascript</noscript>
-  </div>
-  <script src="index.js"></script>
-  <script src="setup.js"></script>
-  <script src="httphandler.js"></script>
-  <script src="wordmanager.js"></script>
   <script src="utility.js"></script>
   <script src="main.js"></script>
- 
 </body>
 </html>
