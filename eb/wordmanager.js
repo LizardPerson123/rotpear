@@ -47,9 +47,16 @@ async function addEbola(choice) {
 async function addToScore(amount) {
   score += amount
   getById("score").innerText = "Score: " + score
+
+  if (text[id] === undefined) {
+    let newText = await GetText()
+    newText = newText.split(".")
+    text = text.concat(newText)
+  }
+
   if (score > 9 && text[id] !== undefined && score % 10 == 0) {
     let newtext = text[id]
-    newtext += "."
+    newtext += ". "
     getById("ebolaCanvas").innerHTML += parseText(newtext, idList.length)
     idList = idList.concat(Array.from(Array(newtext.split(" ").length).keys(), mapFn => mapFn + idList.length))
     curedList = curedList.concat(Array.from(Array(newtext.split(" ").length).keys(), mapFn => mapFn + curedList.length))

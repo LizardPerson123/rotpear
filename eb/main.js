@@ -3,7 +3,7 @@ async function start() {
   getById("start").innerText = "Loading... This May Take A Few Seconds"
   let text = await GetText()
   text = text.split(".")
-  text[0] += "."
+  text[0] += ". "
   getById("ebolaCanvas").innerHTML = parseText(text[0])
   idList = Array.from(Array(text[0].split(" ").length).keys())
   curedList = Array.from(Array(text[0].split(" ").length).keys())
@@ -13,9 +13,8 @@ async function start() {
 
 let id = 1
 
-console.log("Version 1.00")
+console.log("v1.0.1")
 
 GetHighScore()
 ApplyMode()
 ApplyComicSans()
-
