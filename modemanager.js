@@ -20,7 +20,7 @@ function applyMode() {
 function toggleMode() {
   if (localStorage.getItem("mode") == "dark") {
     localStorage.setItem("mode", "light")
-    document.body.style.backgroundColor = "white"
+    document.body.style.backgroundColor = "whitesmoke"
     document.body.style.color = "black"
     let darkButton = getById("darkButton")
 

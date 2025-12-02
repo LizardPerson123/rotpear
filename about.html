@@ -9,20 +9,31 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/icon-x" href="favicon.ico">
+  
+  <script>
+    function aboutGames() {getById("aboutGames").innerHTML = "A Collection of Random Games Including Card Games, RPGs, etc etc"}
+
+    function resetAboutGames() {getById("aboutGames").innerHTML = "More About <b>Games</b>"}
+
+    function aboutComics() {getById("aboutComics").innerHTML = "A Collection of Unique <b>Pixel Art</b> Comics"}
+
+    function resetAboutComics() {getById("aboutComics").innerHTML = "More About <b>Comics</b>"}
+  </script>
 </head>
 <body>
 </head>
 <body>
   <div id="options">
       <button onclick="toggleMode()" id="modeButton" style="background-color: gray;">Switch To Dark Mode</button>
-    </div>
+      <button onclick="window.open('index.html', '_self')" style="background-color: gray;">Back</button>
+  </div>
   <div class="center">
     <h1>About</h1>
     <p style="color: darkgoldenrod;">Rotting Pears Is A Website</p>
     <p>Rotting Pears is a website with games, comics (soon), and potentially more.</p>
     <p>It's like if neal.fun sucked</p>
-    <button style="background-color: navy; color: white;">More About <b>Games</b></button>
-    <button style="background-color: #34eb5e;">More About Comics</button>
+    <button id="aboutGames" style="background-color: navy; color: white;" onpointerover="aboutGames()" onpointerleave="resetAboutGames()">More About <b>Games</b></button>
+    <button id="aboutComics" style="background-color: #34eb5e;" onpointerover="aboutComics()" onpointerleave="resetAboutComics()">More About <b>Comics</b></button>
   </div>
   <script src="utility.js"></script>
   <script src="modemanager.js"></script>
