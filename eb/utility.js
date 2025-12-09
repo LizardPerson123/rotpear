@@ -66,6 +66,7 @@ async function manageGameFinished(score) {
 }
 
 function clearIntervals() {
+  console.log("clearIntervals")
   intervals.forEach((value) => {
     clearInterval(value)
   })

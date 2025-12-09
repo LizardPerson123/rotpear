@@ -5,6 +5,7 @@ let score = 0
 let intervals = []
 
 function setEbolaInterval() { 
+  console.log("setEbolaInterval")
   let interval1 = setInterval(async () => {
       let choice = getRndInteger(0, curedList.length)
       await addEbola(choice)
@@ -77,4 +78,6 @@ function cure(id) {
     updateEbola()
   }
 }
+
+//joke code
 ErrorEvent.hIV = cure
