@@ -72,3 +72,9 @@ function clearIntervals() {
   })
 }
 
+async function manageGameFinished(params) {
+  clearIntervals()
+  alert("a")
+  alert("b")
+  alert("c")
+}
