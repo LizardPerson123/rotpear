@@ -1,6 +1,20 @@
-let textOptions = ["It Exists!", "Touch Grass!", "The Design Is Very Human!", "Dishes... Dishes A Bad Joke", "Also Try Youtube!", "Where Are Your Fingers", "Also Try Zorbeez!", "Donate To Wikipedia!", "It's Free!", "Featuring Ebola Words!"]
-function generateSubtext() {
-  getById("subtext").innerText = textOptions[getRndInteger(0, textOptions.length)]
+async function start() {
+  document.getElementById("start").removeAttribute("href")
+  getById("start").innerText = "Loading... This May Take A Few Seconds"
+  let text = await GetText()
+  text = text.split(".")
+  text[0] += ". "
+  getById("ebolaCanvas").innerHTML = parseText(text[0])
+  idList = Array.from(Array(text[0].split(" ").length).keys())
+  curedList = Array.from(Array(text[0].split(" ").length).keys())
+  setEbolaInterval()
+  return text
 }
 
-generateSubtext()
+let id = 1
+
+console.log("v1.0.3")
+
+GetHighScore()
+ApplyMode()
+ApplyComicSans()
