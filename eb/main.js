@@ -13,7 +13,7 @@ async function start() {
 
 let id = 1
 
-console.log("v1.0.1")
+console.log("v1.0.3")
 
 GetHighScore()
 ApplyMode()

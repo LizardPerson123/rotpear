@@ -32,7 +32,6 @@ function setEbolaInterval() {
 }
 
 async function addEbola(choice) {
-  console.log(ebolaList)
   let curedListStr = curedList[choice]
   getById(curedListStr).style.color = "red"
   curedList.splice(choice, 1)
