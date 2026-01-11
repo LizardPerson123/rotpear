@@ -3,11 +3,14 @@ let curedList
 let ebolaList = []
 let score = 0
 let intervals = []
+let difficulty
+let clearedIntervals = false
 
-function setEbolaInterval(difficulty) { 
+function setEbolaInterval(difficultyVar) { 
   let infectWordSpeed
+  difficulty = difficultyVar
   
-  switch (difficulty) {
+  switch (difficultyVar) {
     case (0): infectWordSpeed = 3000; break
     case (1): infectWordSpeed = 2000; break
     case (2): infectWordSpeed = 1000; break
@@ -23,7 +26,7 @@ function setEbolaInterval(difficulty) {
       try { 
         infectNearbyWord = getRndInteger(1, 10) == 1
         
-        if (infectNearbyWord) { 
+        if (infectNearbyWord && !clearedIntervals) { 
           let direction = getRndInteger(0, 2) //0 is left, 1 is right
           if (direction == 1) {value += 1}
           else {value -= 1}

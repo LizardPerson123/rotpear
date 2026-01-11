@@ -6,7 +6,7 @@ function getRndInteger(min, max) {return Math.floor(Math.random() * (max - min) 
 
 
 function clearIntervals() {
-  console.log("clearIntervals")
+  clearedIntervals = true
   intervals.forEach((value) => {
     clearInterval(value)
   })
@@ -21,6 +21,18 @@ async function manageGameFinished(score) {
 
     //Then Show The User The Alert And Check If The Score Is A New High Score
     alert("Game Over! Your Score: " + score)
+
+    let addToScore = 0
+    if (difficulty == 1) {
+      addToScore = Math.round(score / 2)
+      alert("Normal Mode Bonus: " + addToScore)
+    }
+    else if (difficulty == 2) {
+      addToScore = score
+      alert("Hard Mode Bonus: " + addToScore)
+    }
+
+    score += addToScore
 
     let highscore = localStorage.getItem("highscore")
     let newHighScore = score > highscore
