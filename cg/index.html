@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Game</title>
+  <link rel="stylesheet" href="general.css">
+  <style id="styleTag"></style>
+</head>
+<body>
+  <h1>Card Games (More Coming Soon)</h1>
+  <button onclick='redirect()'>Black Jack</button>
+
+  <script src="utility.js"></script>
+  <script>
+    function redirect() {
+      window.location.href='blackjack/index.html'
+    }
+
+    function letThereBeLight() {
+      getById("styleTag").innerHTML = ""
+      localStorage.setItem("mode", "light")
+    }
+
+    function letThereBeDark() {
+      getById("styleTag").innerHTML = `
+        body {background-color: black; color: white}
+
+        button {color: black}
+      `
+      localStorage.setItem("mode", "dark")
+    }
+
+    function applyMode() {
+      let mode = localStorage.getItem("mode")
+      if (mode == "dark") {
+        letThereBeDark()
+      }
+    }
+
+    applyMode()
+  </script>
+</body>
+</html>
