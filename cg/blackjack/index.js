@@ -46,4 +46,6 @@ function changeMode() {
   }
 }
 
-applyMode()
+addEventListener("pageshow", function() {
+  applyMode()
+})
