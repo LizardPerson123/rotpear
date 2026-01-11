@@ -13,6 +13,10 @@ function letThereBeDark() {
       background-color: gray !important;
       color: black !important
     }
+
+    h1 {
+      text-shadow: 2px 2px 2px rgba(128, 128, 128, 0.8)
+    }
   `
 
   getById("modeButton").innerText = "Switch to Light Mode"
