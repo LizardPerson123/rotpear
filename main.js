@@ -4,5 +4,5 @@ function generateSubtext() {
 }
 
 addEventListener("pageshow", function() {
-  this.window.location.reload()
+  generateSubtext()
 })

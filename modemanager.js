@@ -41,3 +41,7 @@ function toggleMode() {
   }
 
 }
+
+addEventListener("pageshow", function() {
+  applyMode()
+})
