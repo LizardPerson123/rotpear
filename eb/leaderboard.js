@@ -28,3 +28,7 @@ async function loadMoreLeaderboard(addToLeaderboardPage = 1) {
   let leaderboardDiv = getById("leaderboard")
   applyLeaderboard(leaderboardData, leaderboardDiv)
 }
+
+addEventListener("pageshow", function() {
+  ApplyMode()
+})
