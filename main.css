@@ -36,6 +36,11 @@ button {
   color: black;
 }
 
+button:active {
+  opacity: 0.8;
+  width: 80%;
+}
+
 body {
   background-color: whitesmoke;
 }
