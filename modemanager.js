@@ -42,4 +42,6 @@ function toggleMode() {
 
 }
 
-applyMode()
+addEventListener("pageshow", function() {
+  applyMode()
+})

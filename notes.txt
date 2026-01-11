@@ -1,0 +1,1 @@
+If you add "dontChange" class to element it will not change modes, but the class is bad at its job, also, Mitchell likes balls

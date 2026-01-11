@@ -3,4 +3,6 @@ function generateSubtext() {
   getById("subtext").innerText = textOptions[getRndInteger(0, textOptions.length)]
 }
 
-generateSubtext()
+addEventListener("pageshow", function() {
+  generateSubtext()
+})

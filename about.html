@@ -23,18 +23,14 @@
 <body>
 </head>
 <body>
-  <div id="options">
-      <button onclick="toggleMode()" id="modeButton" style="background-color: gray;">Switch To Dark Mode</button>
-      <button onclick="window.open('index.html', '_self')" style="background-color: gray;">Back</button>
-  </div>
-  <div class="center">
-    <h1>About</h1>
-    <p style="color: darkgoldenrod;">Rotting Pears Is A Website</p>
-    <p>Rotting Pears is a website with games, comics (soon), and potentially more.</p>
-    <p>It's like if neal.fun sucked</p>
-    <button id="aboutGames" style="background-color: navy; color: white;" onpointerover="aboutGames()" onpointerleave="resetAboutGames()">More About <b>Games</b></button>
-    <button id="aboutComics" style="background-color: #34eb5e;" onpointerover="aboutComics()" onpointerleave="resetAboutComics()">More About <b>Comics</b></button>
-  </div>
+  <h1>About</h1>
+  <p style="color: darkgoldenrod;">Rotting Pears Is A Website</p>
+  <p>Rotting Pears is a website with games, comics (soon), and potentially more.</p>
+  <p>It's like if neal.fun sucked</p>
+  <button id="aboutGames" style="background-color: navy; color: white;" onpointerover="aboutGames()" onpointerleave="resetAboutGames()">More About <b>Games</b></button>
+  <button id="aboutComics" style="background-color: #34eb5e;" onpointerover="aboutComics()" onpointerleave="resetAboutComics()">More About <b>Comics</b></button>
+  <button onclick="toggleMode()" id="modeButton" style="background-color: silver;" >Switch To Dark Mode</button>
+
   <script src="utility.js"></script>
   <script src="modemanager.js"></script>
 </body>
