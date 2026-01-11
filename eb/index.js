@@ -1,55 +1,53 @@
 let defaultColor = "black"
 
-function ChangeColorMode(pageColor) {
-  if (pageColor == "dark") {
-    document.body.style.backgroundColor = "black"
-    document.body.style.color = "white"
+function letThereBeDark() {
+  document.body.style.backgroundColor = "black"
+  document.body.style.color = "white"
 
-    for (let element of document.getElementsByTagName("a")) {
-      if (element.style.color != "red") {element.style.color = "white"}
-    }
-
-    for (let element of document.getElementsByClassName("altChange")) {
-      element.style.color = "black"
-      element.style.backgroundColor = "white"
-    }
+  for (let element of document.getElementsByTagName("a")) {
+    if (element.style.color != "red") {element.style.color = "white"}
   }
-  else {
-    document.body.style.backgroundColor = "white"
-    document.body.style.color = "black"
 
-    for (let element of document.getElementsByTagName("a")) {
-      if (element.style.color != "red") {element.style.color = "black"}
-    }
+  for (let element of document.getElementsByClassName("altChange")) {
+    element.style.color = "black"
+    element.style.backgroundColor = "white"
+  }
+}
 
-    for (let element of document.getElementsByClassName("altChange")) {
-      element.style.color = "white"
-      element.style.backgroundColor = "black"
-    }
+function letThereBeLight() {
+  document.body.style.backgroundColor = "white"
+  document.body.style.color = "black"
+
+  for (let element of document.getElementsByTagName("a")) {
+    if (element.style.color != "red") {element.style.color = "black"}
+  }
+
+  for (let element of document.getElementsByClassName("altChange")) {
+    element.style.color = "white"
+    element.style.backgroundColor = "black"
   }
 }
 
 function ChangeMode() {
   if (localStorage.getItem("mode") == "dark") {
     localStorage.setItem("mode", "light")
-    ChangeColorMode("light")
+    letThereBeLight()
     defaultColor = "black"
   }
-
   else {
     localStorage.setItem("mode", "dark")
-    ChangeColorMode("dark")
+    letThereBeDark()
     defaultColor = "white"
   }
 }
 
 function ApplyMode() {
   if (localStorage.getItem("mode") == "dark") {
-    ChangeColorMode("dark")
+    letThereBeDark()
     defaultColor = "white"
   } 
   else {
-    ChangeColorMode("light")
+    letThereBeLight()
     defaultColor = "black"
   }
 }

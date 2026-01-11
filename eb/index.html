@@ -8,22 +8,32 @@
   <link rel="icon" type="image/icon-x" href="../favicon.ico">
 </head>
 <body>
-  <div class="header">
+  <div class="header" style="margin-bottom: 2em;">
     <h1>Ebola Words</h1>
     <p class="introText">Click On The Red Words To Cure Them Of Ebola! Don't Let 20 Or More Words Get Ebola!</p>
     <p class="introText">Ebola Spreads Faster The More Words That Have It!</p>
     <p class="infoText" id="score">Score: 0</p>
     <p class="infoText" id="ebola">Words With Ebola: 0</p>
     <p class="infoText" id="highscore">High Score: 0</p>
+
+    <div id="optionImg" >
+      <img onclick="getById('options').style.display = 'inline'; getById('optionImg').style.display = 'none'" src="3dot.svg" width="60px">
+    </div>
+
     <div id="options">
       <button class="option altChange" id="modeButton" onclick="ChangeMode()">Change Mode</button>
       <button class="option altChange" id="comicSansToggle" onclick="ToggleComicSans()">Toggle Comic Sans</button>
       <button class="option altChange" id="leaderboardOpen" onclick="window.open('/eb/leaderboard.html', '_self')">Leaderboard</button>
-      <button class="option altChange" id="backToRotpear" onclick="window.open('../', '_self')">Back</button>
+      <button class="option altChange" id="backToRotpear" onclick="getById('options').style.display = 'none'; getById('optionImg').style.display = 'inline'">Hide</button>
+
     </div>
   </div>
   <div id="ebolaCanvas">
-    <a id="start" style="text-decoration: none;" href="javascript:let text = start().then(value => text = value)">Click To Start</a>
+    <a id="start" style="text-decoration: none; display: block;" href="javascript:let text = start(0).then(value => text = value)">Easy Mode</a>
+
+    <a id="start2" style="text-decoration: none; display: block;" href="javascript:let text = start(1).then(value => text = value)">Normal Mode</a>
+
+    <a id="start3" style="text-decoration: none; display: block;" href="javascript:let text = start(2).then(value => text = value)">Hard Mode</a>
     <noscript>Please Enable Javascript</noscript>
   </div>
   <script src="index.js"></script>

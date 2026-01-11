@@ -4,13 +4,19 @@ let ebolaList = []
 let score = 0
 let intervals = []
 
-function setEbolaInterval() { 
-  console.log("setEbolaInterval")
+function setEbolaInterval(difficulty) { 
+  let infectWordSpeed
+  
+  switch (difficulty) {
+    case (0): infectWordSpeed = 3000; break
+    case (1): infectWordSpeed = 2000; break
+    case (2): infectWordSpeed = 1000; break
+  }
+
   let interval1 = setInterval(async () => {
       let choice = getRndInteger(0, curedList.length)
-      await addEbola(choice)
-      
-  }, 2000)
+      await addEbola(choice)  
+  }, infectWordSpeed)
 
   let interval2 = setInterval(() => { 
     ebolaList.forEach(async (value) => {
@@ -25,7 +31,7 @@ function setEbolaInterval() {
         }
       } catch (error) {}
     })
-  }, 2000)
+  }, infectWordSpeed)
 
   intervals.push(interval1)
   intervals.push(interval2)
