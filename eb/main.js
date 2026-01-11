@@ -1,6 +1,6 @@
 async function start(difficulty) {
   document.getElementById("start").removeAttribute("href")
-  
+
   getById("start").innerText = "Loading... This May Take A Few Seconds"
   getById("start2").style.display = "none"
   getById("start3").style.display = "none"
@@ -17,7 +17,7 @@ async function start(difficulty) {
 
 let id = 1
 
-console.log("v1.0.3")
+console.log("v1.1.0")
 
 GetHighScore()
 ApplyComicSans()
