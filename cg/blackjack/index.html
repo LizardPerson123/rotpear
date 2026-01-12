@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blackjack</title>
   <link rel="stylesheet" href="blackjack.css">
-  <style id="styleTag">
-  </style>
+  <style id="styleTag"></style>
   <link rel="icon" type="image/icon-x" href="../../favicon.ico">
 
   <script>
@@ -34,8 +33,10 @@
       bljNumber += card
 
       if (bljNumber > 21) {
-       alert("BUST! You exceeded 21.")
-       window.location.reload()
+       if (id == playerDiv) {
+        alert("You Busted! You Exceeded 21")
+        window.location.reload()
+       }
       }
 
       return bljNumber
@@ -76,7 +77,7 @@
         aceList.push(false)
         getById(id).innerHTML += `
           <div class="aceCard">
-            <img width="100%" src='../cards/${card[0]}-${card[1]}.svg'>
+            <img width="100%" src='/cards/${card[0]}-${card[1]}.svg'>
             <div class="aceBtnDiv">
               <button class="aceBtn" onclick="aceReduceToOne(${aceList.length - 1})">1</button> 
               <button class="aceBtn" onclick="aceIncreaseToEleven(${aceList.length - 1})">10</button>
@@ -234,7 +235,7 @@
 
   <div style="display: none;" id="multiplayerMenu">
     <button class="optionButton" id="joinSession" onclick="joinSession()">Join Session</button>
-    <button class="optionButton" id="createSession" onclick="newSession()">Create Session</button>
+    <button class="optionButton" id="createSession" onclick="newSession()">New Session</button>
   </div>
 
   <script src="pearnet.js"></script>
@@ -263,6 +264,4 @@
     }
   </script>
 </body>
-
 </html>
-
