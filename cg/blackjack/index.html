@@ -12,7 +12,8 @@
     console.log("Version 1.01")
     let playerNumber = 0
     let dealerNumber = 0
-    let dealerAceList = []
+    let dealerCardList = []
+    let playerCardList = []
     let aceList = []
     let betAmount
     let playerDiv = "playerCards"
@@ -21,44 +22,39 @@
       let card = generateCard()
       showCard(id, card)
 
+      let cardNum = card[1]
+      if (cardNum > 10) {
+        cardNum = 10
+      }
+
       if (id == "dealerCards") {
-        dealerAceList.push(card)
+        dealerCardList.push(card)
+        dealerNumber += cardNum
+      }
+      else {
+        playerCardList.push(card)
+        playerNumber += cardNum
       }
 
-      card = card[1]
-      if (card > 10) {
-        card = 10
-      }
-  
-      bljNumber += card
-
-      if (bljNumber > 21) {
-       if (id == playerDiv) {
+      if (playerNumber > 21) {
         alert("You Busted! You Exceeded 21")
+
+        localStorage.setItem("bljScore", Number(localStorage.getItem("bljScore")) - betAmount)
+
+        if (localStorage.getItem("bljScore") < 1) {
+          localStorage.setItem("bljScore", 5)
+        }
+
         window.location.reload()
-       }
+       
       }
 
-      return bljNumber
-    }
-
-    function increaseNumberMulti(id, bljNumber) {
-      let card = generateCard()
-      showCard(id, card)
-
-      card = card[1]
-      if (card > 10) {
-        card = 10
+      if (id == "dealerCards") {
+        return dealerNumber
       }
-  
-      bljNumber += card
-
-      if (bljNumber > 21) {
-       alert("BUST! You exceeded 21.")
-       window.location.reload()
+      else {
+        return playerNumber
       }
-
-      return bljNumber
     }
 
     function increasePlayerNumber() {
@@ -75,20 +71,9 @@
     function showCard(id, card) {
       if (card[1] == 1 && id == playerDiv) {
         aceList.push(false)
-        getById(id).innerHTML += `
-          <div class="aceCard">
-            <img width="100%" src='../cards/${card[0]}-${card[1]}.svg'>
-            <div class="aceBtnDiv">
-              <button class="aceBtn" onclick="aceReduceToOne(${aceList.length - 1})">1</button> 
-              <button class="aceBtn" onclick="aceIncreaseToEleven(${aceList.length - 1})">10</button>
-            </div>
-            <p id='aceValue-${aceList.length - 1}'>Current Value: 1</p>
-        </div>
-          `
       }
-      else {
-        getById(id).innerHTML += `<img width="100%" src='../cards/${card[0]}-${card[1]}.svg' >`
-      }
+      
+      getById(id).innerHTML += `<img width="100%" src='../cards/${card[0]}-${card[1]}.svg' >`
     }
 
     function startGame() {
@@ -115,9 +100,15 @@
         increaseDealerNumber()
       }
 
-      dealerAceList.forEach(function() {
-        if (dealerNumber + 10 <= 21) {
+      dealerCardList.forEach(function(item) {
+        if (dealerNumber + 10 <= 21 && item[1] == 1) {
           dealerNumber += 10
+        }
+      })
+
+      playerCardList.forEach(function(item) {
+        if (playerNumber + 10 <= 21 && item[1] == 1) {
+          playerNumber += 10
         }
       })
 
@@ -238,7 +229,7 @@
     <button class="optionButton" id="createSession" onclick="newSession()">New Session</button>
   </div>
 
-  <script src="pearnet.js"></script>
+  <script src="../pearnet.js"></script>
   <script src="clientlib.js"></script>
   <script src="multiplayer.js"></script>
   <script src="../utility.js"></script>

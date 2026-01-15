@@ -316,6 +316,8 @@ function getBljCard() {
 }
 
 async function restartGame() {
+  resetCards()
+  
   for (const [key, value] of Object.entries(usersData)) {
     if (value.betAmount == 0) {
       value.betAmount = 5
