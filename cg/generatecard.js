@@ -23,7 +23,6 @@ function generateCard() {
 
   let card = cards[suit].splice(getRndInteger(0, cards[suit].length), 1)
 
-  return [1, 1]
   return [suit + 1, card[0]]
 }
 
