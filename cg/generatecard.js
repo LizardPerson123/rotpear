@@ -23,5 +23,18 @@ function generateCard() {
 
   let card = cards[suit].splice(getRndInteger(0, cards[suit].length), 1)
 
+  return [1, 1]
   return [suit + 1, card[0]]
+}
+
+function resetCards() {
+  Spades = Array.from(Array(13).keys()).map(x => x+ 1)
+
+  Hearts = Array.from(Array(13).keys()).map(x => x+ 1)
+
+  Diamonds = Array.from(Array(13).keys()).map(x => x+ 1)
+
+  Clubs = Array.from(Array(13).keys()).map(x => x+ 1)
+
+  cards = [Spades, Hearts, Diamonds, Clubs]
 }
