@@ -10,12 +10,18 @@
 </head>
 <body>
   <h1>Card Games (More Coming Soon)</h1>
-  <button onclick='redirect()'>Black Jack</button>
+  <div class="gameButton">
+    <button style="background-color: #fcba03;" onclick='redirect("blackjack")'>Black Jack</button>
+  </div>
+
+  <div class="gameButton">
+    <button style="background-color: #0553fa;" onclick='redirect("war")'>War</button>
+  </div>
 
   <script src="utility.js"></script>
   <script>
-    function redirect() {
-      window.location.href='blackjack/index.html'
+    function redirect(game) {
+      window.location.href=`${game}/index.html`
     }
 
     function letThereBeLight() {
@@ -37,9 +43,6 @@
       if (mode == "dark") {
         letThereBeDark()
       }
-      else {
-        letThereBeLight()
-      }
     }
 
     addEventListener("pageshow", function() {
@@ -47,5 +50,4 @@
     })
   </script>
 </body>
-
 </html>
