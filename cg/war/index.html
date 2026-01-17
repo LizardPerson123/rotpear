@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>War</title>
+  <link rel="stylesheet" href="war.css">
+  <link rel="icon" type="image/icon-x" href="../../favicon.ico">
+
+  <style id="styleTag"></style>
+
+  <script>
+    console.log("Version 1.00")
+
+    let playerCards
+    let cpuCards
+    let i = 0
+    let playerWarCards = []
+    let cpuWarCards = []
+
+    function showCard(card, id) {
+      getById(id).innerHTML += `<img width="100%" src='../cards/${card[0]}-${card[1]}.svg' >`
+    }
+
+    function hideCard(id) {
+      getById(id).innerHTML = ""
+    }
+
+    function startGame(firstCardSet, secondCardSet) {
+      firstCardSet = []
+      secondCardSet = []
+
+      for (let i = 1; i <= 26; i++) {
+        firstCardSet.push(generateCard())
+      }
+
+      for (let i = 1; i <= 26; i++) {
+        secondCardSet.push(generateCard())
+      }
+
+      return [firstCardSet, secondCardSet]
+    }
+
+    function nextInDeck(cardDeck) {
+      cardDeck.push(cardDeck[0])
+      removeItem(cardDeck, cardDeck[0])
+
+      return cardDeck
+    }
+
+    function firstRound() {
+      getById("round").innerHTML = "Place Card"
+      getById("round").setAttribute("onclick", "round()")
+      getById("multiplayer").style.display = "none"
+      getById("playerCardsNum").style.display = "block"
+      getById("cpuCardsNum").style.display = "block"
+
+      round()
+    }
+
+    function round() {
+      if (!cpuCards[0]) {
+        alert("Player Wins")
+        window.location.reload()
+      }
+      else if (!playerCards[0]) {
+        alert("CPU Wins!")
+        window.location.reload()
+      }
+
+      hideCard("playerCards")
+      hideCard("cpuCards")
+
+      showCard(cpuCards[0], "cpuCards")
+      showCard(playerCards[0], "playerCards")
+
+      let compareResult = compare(playerCards[0][1], cpuCards[0][1])
+      
+      if (compareResult == "war") {
+        getById("whoWon").innerHTML = "War!"
+
+        getById("outerPlayerCards").style.width = "100%"
+        getById("outerCPUCards").style.width = "100%"
+
+        cpuWarCards.push(cpuCards[0])
+        playerWarCards.push(playerCards[0])
+
+        removeItem(cpuCards, cpuCards[0])
+        removeItem(playerCards, playerCards[0])
+
+        for (let i = 1; i <= 3; i++) {
+          if (!(playerCards.length < 2)) {
+            let playerCard = nextInDeck(playerCards)[0]
+          
+            removeItem(playerCards, playerCard)
+            playerWarCards.push(playerCard)
+
+            showCard(playerCard, "playerCards")
+          }
+          else {
+            
+          }
+          
+        }
+
+        for (let i = 1; i <= 3; i++) {
+          if (!(cpuCards.length < 2)) {
+            let cpuCard = nextInDeck(cpuCards)[0]
+
+            removeItem(cpuCards, cpuCard)
+            cpuWarCards.push(cpuCard)
+
+            showCard(cpuCard, "cpuCards")
+          }
+          else {
+            break
+          }
+         
+        }
+
+        getById("round").setAttribute("onclick", "warRound()")
+
+      }
+
+      else if (compareResult) {
+        getById("whoWon").innerHTML = "Player Wins Card"
+
+        playerCards.push(cpuCards[0])
+        removeItem(cpuCards, cpuCards[0])
+
+        playerCards = nextInDeck(playerCards)
+      }
+
+      else {
+        getById("whoWon").innerHTML = "CPU Wins Card"
+
+        cpuCards.push(playerCards[0])
+        removeItem(playerCards, playerCards[0])
+
+        cpuCards = nextInDeck(cpuCards)
+      }
+
+      getById("playerCardsNum").innerHTML = `Player Cards: ${playerCards.length}`
+      getById("cpuCardsNum").innerHTML = `CPU Cards: ${cpuCards.length}`
+
+      i++
+    }
+
+    function warRound() {
+      let playerCard = nextInDeck(playerCards)[0]
+      removeItem(playerCards, playerCard)
+      playerWarCards.push(playerCard)
+
+      let cpuCard = nextInDeck(cpuCards)[0]
+      removeItem(cpuCards, cpuCard)
+      cpuWarCards.push(cpuCard)
+
+      let compareResult = compare(playerCard[1], cpuCard[1])
+
+      if (compareResult == "war") {
+        alert("Tie! The War Continues")
+        showCard(playerCard, "playerCards")
+        showCard(cpuCard, "cpuCards")
+        return
+      }
+      else if (compareResult) {
+        alert("Player Wins The War")
+        playerWarCards.forEach(function(card) {
+          playerCards.push(card)
+        })
+
+        cpuWarCards.forEach(function(card) {
+          playerCards.push(card)
+        })
+
+      }
+      else {
+        alert("CPU Wins The War")
+        playerWarCards.forEach(function(card) {
+          cpuCards.push(card)
+        })
+
+        cpuWarCards.forEach(function(card) {
+          cpuCards.push(card)
+        })
+      }
+
+      playerWarCards = []
+      cpuWarCards = []
+
+      getById("round").setAttribute("onclick", "round()")
+
+      getById("playerCardsNum").innerHTML = `Player Cards: ${playerCards.length}`
+      getById("cpuCardsNum").innerHTML = `CPU Cards: ${cpuCards.length}`
+
+      hideCard("cpuCards")
+      hideCard("playerCards")
+
+      getById("outerPlayerCards").style.width = "40%"
+      getById("outerCPUCards").style.width = "40%"
+
+      getById("whoWon").innerHTML = "Click Round To Continue"
+    }
+
+    function compare(playerCard, cpuCard) {
+      if (playerCard == 1) {
+        playerCard = 14
+      }
+
+      if (cpuCard == 1) {
+        cpuCard = 14
+      }
+
+      if (playerCard == cpuCard) {
+        return "war"
+      }
+      else if (playerCard > cpuCard) {
+        return true
+      }
+      
+      return false
+    }
+
+  </script>
+</head>
+<body>
+  <h1>War</h1>
+  <button id="round" onclick="firstRound()" class="optionButton">Start</button>
+  <button class="optionButton" id="modeButton" onclick="changeMode()">Dark</button>
+  <button id="multiplayer" onclick="multiplayerStart()" class="optionButton">Multiplayer</button>
+  <h1 id="host" style="display: none;"></h1>
+  <h1 id="whoWon">Click Start Or Multiplayer</h1>
+  <p id="cpuCardsNum" class="infoText" style="display: none;">CPU Cards: </p>
+  <p id="playerCardsNum" class="infoText" style="display: none;">Your Cards: </p>
+
+  <div id="cards" style="display: flex; justify-content: center; flex-wrap: wrap;">
+    <div id="outerPlayerCards" style="margin-top: 0.5em; width: 40%;" class="outerBoxDiv">
+      <h1 id="playerName">Your Cards</h1>
+      <div id="playerCards" class="cardDeck">
+      </div>
+    </div>
+
+    <div id="outerCPUCards" class="outerBoxDiv" style="width: 40%; margin-top: 0.5em; margin-left: 1em;">
+      <h1 id="opponentName">CPU Cards</h1>
+      <div id="cpuCards" class="cardDeck">
+      </div>
+    </div>
+  </div>
+
+  <div style="display: none;" id="multiplayerNewMenu">
+    <h2 id="status"></h2>
+  </div>
+
+  <div style="display: none;" id="multiplayerMenu">
+    <button class="optionButton" id="joinSession" onclick="joinSession()">Join Session</button>
+    <button class="optionButton" id="createSession" onclick="newSession()">New Session</button>
+  </div>
+
+  <script src="../pearnet.js"></script>
+  <script src="pleblib.js"></script>
+  <script src="hostlib.js"></script>
+  <script src="multiplayer.js"></script>
+  <script src="../utility.js"></script>
+  <script src="../generatecard.js"></script>
+  <script src="../index.js"></script>
+  <script>
+    let start = startGame(playerCards, cpuCards)
+    playerCards = start[0]
+    cpuCards = start[1]
+  </script>
+
+  <script>
+    async function multiplayerStart() {
+      ws = new WebSocket("wss://api.rottingpears.com/")
+
+      ws.onmessage = function () {
+        getById("multiplayer").style.display = "none"
+        getById("round").style.display = "none"
+        getById("cards").style.display = "none"
+        getById("whoWon").style.display = "none"
+        getById("modeButton").style.display = "none"
+
+        getById("multiplayerMenu").style.display = "block"
+      }
+    }
+  </script>
+</body>
+</html>
