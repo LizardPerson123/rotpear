@@ -9,7 +9,8 @@
   <link rel="icon" type="image/icon-x" href="../../favicon.ico">
 
   <script>
-    console.log("Version 1.01")
+    console.log("Version 1.03")
+    
     let playerNumber = 0
     let dealerNumber = 0
     let dealerCardList = []
@@ -128,28 +129,6 @@
       window.location.reload()
     }
 
-    function aceReduceToOne(updateCard) {
-      if (aceList[updateCard]) {
-        playerNumber -= 10
-        getById(`aceValue-${updateCard}`).innerText = "Current Value: 1"
-      }
-      aceList[updateCard] = false
-    }
-
-    function aceIncreaseToEleven(updateCard) {
-      if (!aceList[updateCard]) {
-        if (playerNumber > 11) {
-          alert("You Can't Do That Since You Would Immediately Bust")
-          return
-        }
-        else {
-          playerNumber += 10
-          getById(`aceValue-${updateCard}`).innerText = "Current Value: 11"
-        }
-      }
-      aceList[updateCard] = true
-    }
-
     function handleBettingSingle() {
       if (!localStorage.getItem("bljScore")) {localStorage.setItem("bljScore", 5)}
       let bljScore = localStorage.getItem("bljScore")
@@ -234,7 +213,7 @@
   <script src="multiplayer.js"></script>
   <script src="../utility.js"></script>
   <script src="../generatecard.js"></script>
-  <script src="index.js"></script>
+  <script src="../index.js"></script>
 
   <script>
     let members

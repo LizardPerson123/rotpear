@@ -160,7 +160,14 @@ async function beginRound() {
 
 async function beginGame() {
   await endJoiningApi()
-  users = await getMembersApi()
+  let members = await getMembersApi()
+
+  if (members.length < 2) {
+    alert("Not Enough Players")
+    return
+  }
+
+  users = members
 
   usersData = {}
 
