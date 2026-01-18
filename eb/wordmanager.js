@@ -11,8 +11,8 @@ function setEbolaInterval(difficultyVar) {
   difficulty = difficultyVar
   
   switch (difficultyVar) {
-    case (0): infectWordSpeed = 3000; break
-    case (1): infectWordSpeed = 2000; break
+    case (0): infectWordSpeed = 2000; break
+    case (1): infectWordSpeed = 1500; break
     case (2): infectWordSpeed = 1000; break
   }
 
