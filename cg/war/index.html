@@ -26,15 +26,15 @@
       getById(id).innerHTML = ""
     }
 
-    function startGame(firstCardSet, secondCardSet) {
+    function startGame(firstCardSet, secondCardSet, cardNum) {
       firstCardSet = []
       secondCardSet = []
 
-      for (let i = 1; i <= 13; i++) {
+      for (let i = 1; i <= cardNum; i++) {
         firstCardSet.push(generateCard())
       }
 
-      for (let i = 1; i <= 13; i++) {
+      for (let i = 1; i <= cardNum; i++) {
         secondCardSet.push(generateCard())
       }
 
@@ -264,7 +264,7 @@
   <script src="../generatecard.js"></script>
   <script src="../index.js"></script>
   <script>
-    let start = startGame(playerCards, cpuCards)
+    let start = startGame(playerCards, cpuCards, 13)
     playerCards = start[0]
     cpuCards = start[1]
   </script>
