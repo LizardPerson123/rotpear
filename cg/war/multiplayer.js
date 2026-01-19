@@ -97,7 +97,7 @@ function beginGameHost(event) {
   }
 
   resetCards()
-  let start = startGame(host.cards, pleb.cards)
+  let start = startGame(host.cards, pleb.cards, 26)
 
   host.cards = start[0]
   pleb.cards = start[1]
