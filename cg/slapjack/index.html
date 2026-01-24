@@ -28,8 +28,8 @@
 
         setTimeout(function() {
           hideCard("card")
-        }, 10)
-      }, 10)
+        }, 100)
+      }, 100)
     }
 
     function showCard(card, id) {
@@ -96,12 +96,15 @@
       playerCards = cards[0]
       cpuCards = cards[1]
 
+      checkDivHeight()
+
       getById("playerCardsNum").style.display = "block"
       getById("cpuCardsNum").style.display = "block"
       getById("currentTurn").style.display = "block"
       getById("deckCardsNum").style.display = "block"
       getById("round").innerText = "Place Card"
       getById("round").removeAttribute("onclick")
+      getById("multiplayer").style.display = "none"
 
       getById("playerCardsNum").innerHTML = "Your Cards: 26"
       getById("cpuCardsNum").innerHTML = "CPU Cards: 26"
@@ -275,6 +278,7 @@
         getById("multiplayer").style.display = "none"
         getById("round").style.display = "none"
         getById("cards").style.display = "none"
+        getById("modeButton").style.display = "none"
         getById("multiplayerMenu").style.display = "block"
       }
     }
@@ -289,9 +293,5 @@
   <script src="hostlib.js"></script>
   <script src="pleblib.js"></script>
   <script src="../index.js"></script>
-
-  <script>
-    checkDivHeight()
-  </script>
 </body>
 </html>

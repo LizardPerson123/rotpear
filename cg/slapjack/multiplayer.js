@@ -46,6 +46,7 @@ function joinSession() {
             getById("cards").style.display = "flex"
             getById("multiplayerJoin").style.display = "none"
             getById("currentTurn").style.display = "block"
+            getById("round").innerHTML = "Place Card"
             getById("round").style.display = "inline-block"
             getById("round").removeAttribute("onclick")
 
@@ -56,6 +57,8 @@ function joinSession() {
             }
 
             onMessageFrom = gamePleb
+
+            checkDivHeight()
 
             let members = await getMembersApi()
 
@@ -155,6 +158,10 @@ function newSession() {
 async function beginGameHost() {
   await endJoiningApi()
   let members = await getMembersApi()
+
+  getById("round").innerHTML = "Place Card"
+
+  checkDivHeight()
 
   if (members.length < 2) {
     alert("Not Enough Players")
