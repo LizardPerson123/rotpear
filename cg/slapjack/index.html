@@ -15,6 +15,22 @@
     let cpuSlap
     let endTimeout
     let resolveFunc
+    let offsetHeight
+
+    function checkDivHeight() {
+      //this is crude. better solution needed
+      getById("card").innerHTML += "<img style='visibility: hidden' src='../cards/1-1.svg'>"
+
+      setTimeout(function() {
+        offsetHeight = getById("outerCard").offsetHeight
+
+        getById("outerCard").style.height = `${offsetHeight}px`
+
+        setTimeout(function() {
+          hideCard("card")
+        }, 10)
+      }, 10)
+    }
 
     function showCard(card, id) {
       if (card[1] == 11) {
@@ -45,7 +61,7 @@
     }
 
     function hideCard(id) {
-      getById(id).innerHTML = ""
+      getById(id).innerHTML = ''
     }
 
     function dealCards(firstCardSet, secondCardSet) {
@@ -223,7 +239,7 @@
   </div>
   
   <div id="cards" style="display: flex; justify-content: center; flex-wrap: wrap;">
-    <div id="outerCard" style="margin-top: 0.5em; width: 40%;" class="outerBoxDiv">
+    <div id="outerCard" style="margin-top: 0.5em; width: 40%; " class="outerBoxDiv">
       <h1>Card</h1>
       <div id="card" class="cardDeck">
       </div>
@@ -262,6 +278,8 @@
         getById("multiplayerMenu").style.display = "block"
       }
     }
+
+    
   </script>
 
   <script src="../generatecard.js"></script>
@@ -271,5 +289,9 @@
   <script src="hostlib.js"></script>
   <script src="pleblib.js"></script>
   <script src="../index.js"></script>
+
+  <script>
+    checkDivHeight()
+  </script>
 </body>
 </html>
