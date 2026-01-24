@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slapjack</title>
+  <style id="styleTag"></style>
+  <link rel="stylesheet" href="slapjack.css">
+
+  <script>
+    console.log("Version 1.00")
+    let playerCards = []
+    let cpuCards = []
+    let deckCards = []
+    let cpuSlap
+    let endTimeout
+    let resolveFunc
+
+    function showCard(card, id) {
+      if (card[1] == 11) {
+        getById(id).innerHTML += `
+          <img id='cardImg' onclick='rightSlap()' width="100%" src='../cards/${card[0]}-${card[1]}.svg' >
+        `
+        return
+      }
+      getById(id).innerHTML += `<img width="100%" id='cardImg' onclick='wrongSlap()' src='../cards/${card[0]}-${card[1]}.svg' >`
+    }
+
+    function rightSlap() {
+      endTimeout()
+      alert("You Slapped!")
+      appendFromDeck(playerCards)
+      updateCardNum()
+      getById("cardImg").remove()
+    }
+
+    function wrongSlap() {
+      alert("That Was Not A Jack! You Lose 3 Cards")
+      for (let i = 0; i < 3; i++) {
+        if (playerCards.length > 0) {
+          cpuCards.push(playerCards[0])
+          removeItem(playerCards, playerCards[0])
+        }
+      }
+    }
+
+    function hideCard(id) {
+      getById(id).innerHTML = ""
+    }
+
+    function dealCards(firstCardSet, secondCardSet) {
+      firstCardSet = []
+      secondCardSet = []
+
+      for (let i = 1; i <= 26; i++) {
+        firstCardSet.push(generateCard())
+      }
+
+      for (let i = 1; i <= 26; i++) {
+        secondCardSet.push(generateCard())
+      }
+
+      return [firstCardSet, secondCardSet]
+    }
+
+    function dealCardsMulti(cardSets) {
+      let numberOfCards = Math.floor(52 / cardSets.length)
+
+      cardSets.forEach(function(set) {
+        for (let i = 0; i < numberOfCards; i++) {
+          set.push(generateCard())
+        }
+      })
+
+      return cardSets
+    }
+
+    async function startGame() {
+      let cards = dealCards()
+      playerCards = cards[0]
+      cpuCards = cards[1]
+
+      getById("playerCardsNum").style.display = "block"
+      getById("cpuCardsNum").style.display = "block"
+      getById("currentTurn").style.display = "block"
+      getById("deckCardsNum").style.display = "block"
+      getById("round").innerText = "Place Card"
+      getById("round").removeAttribute("onclick")
+
+      getById("playerCardsNum").innerHTML = "Your Cards: 26"
+      getById("cpuCardsNum").innerHTML = "CPU Cards: 26"
+      getById("deckCardsNum").innerHTML = "Deck Cards: 0"
+
+      getById("currentTurn").innerHTML = "Your Turn"
+
+      while(true) {
+        await waitForPlayerInput(playerPlaceCard)
+        await waitForCPUInput(cpuPlaceCard)
+      }
+    }
+
+    async function playerPlaceCard() {
+      hideCard("card")
+
+      let card = playerCards[0]
+      removeItem(playerCards, card)
+
+      deckCards.push(card)
+
+      updateCardNum()
+      showCard(card, "card")
+
+      if (card[1] == 11) {
+        await enterCPUSlap()
+      }
+    }
+
+    async function cpuPlaceCard() {
+      hideCard("card")
+
+      let card = cpuCards[0]
+      removeItem(cpuCards, card)
+
+      deckCards.push(card)
+
+      updateCardNum()
+      showCard(card, "card")
+
+      if (card[1] == 11) {
+        await enterCPUSlap()
+      }
+    }
+
+    function enterCPUSlap() {
+      return new Promise( (resolve) => {
+        resolveFunc = resolve
+        endTimeout = function() {
+          resolveFunc()
+          clearTimeout(cpuSlap)
+        }
+
+        cpuSlap = setTimeout(function() {
+          alert("CPU Slaps!")
+          appendFromDeck(cpuCards)
+          getById("cardImg").remove()
+          updateCardNum()
+          resolve()
+        }, 800)
+        
+      })
+    }
+
+    function waitForPlayerInput(callback = () => {}) {
+      getById("currentTurn").innerHTML = "Your Turn"
+      return new Promise(function(resolve) {
+        if (playerCards.length == 0) {
+          resolve()
+        }
+        else {
+          getById("round").addEventListener("click", async function clickEvent() {
+            await callback()
+            getById("round").removeEventListener("click", clickEvent)
+            resolve()
+          })
+        }
+      })
+    }
+
+    function waitForCPUInput(callback = () => {}) {
+      getById("currentTurn").innerHTML = "CPU Turn"
+      return new Promise(function(resolve) {
+        if (cpuCards.length == 0) {
+          resolve()
+        }
+        else {
+          let timeout = getRndInteger(5, 10) * 100
+
+          setTimeout(async function () {
+            await callback()
+            resolve()
+          }, timeout)
+        }
+      })
+    }
+
+    function appendFromDeck(receiver) {
+      deckCards.forEach(function(card) {
+        receiver.push(card)
+      })
+
+      deckCards = []
+    }
+
+    function updateCardNum() {
+      getById("playerCardsNum").innerHTML = `Your Cards: ${playerCards.length}`
+      getById("cpuCardsNum").innerHTML = `CPU Cards: ${cpuCards.length}`
+      getById("deckCardsNum").innerHTML = `Deck Cards: ${deckCards.length}`
+
+      if (playerCards.length == 52) {
+        alert("You Win")
+        window.location.reload()
+      }
+      else if (cpuCards.length == 52) {
+        alert("CPU Wins")
+        window.location.reload()
+      }
+    }
+
+    
+  </script>
+</head>
+<body>
+  <h1>Slapjack</h1>
+  <h1 style="display: none;" id="currentTurn"></h1>
+  <button id="round" class="optionButton" onclick="startGame()">Start</button>
+  <button class="optionButton" id="modeButton" onclick="changeMode()">Dark</button>
+  <button id="multiplayer" class="optionButton" onclick="multiplayerStart()">Multiplayer</button>
+  
+  <div id="cardNum" style="text-align: center;">
+    <p id="cpuCardsNum" class="infoText" style="display: none;">CPU Cards: </p>
+    <p id="playerCardsNum" class="infoText" style="display: none;">Your Cards: </p>
+    <p id="deckCardsNum" class="infoText" style="display: none;">Deck Cards: </p>
+  </div>
+  
+  <div id="cards" style="display: flex; justify-content: center; flex-wrap: wrap;">
+    <div id="outerCard" style="margin-top: 0.5em; width: 40%;" class="outerBoxDiv">
+      <h1>Card</h1>
+      <div id="card" class="cardDeck">
+      </div>
+    </div>
+  </div>
+
+  <div style="display: none;" id="multiplayerNewMenu">
+    <h2 id="status"></h2>
+    <button style="margin-bottom: 20px;" class="optionButton" onclick="beginGameHost()">Start Game</button>
+    <div class="outerBoxDiv" style=" padding-top: 0.5em; padding-bottom: 1em;" id="usernames">
+      <h2 style="font-size: 1.7em;">Players</h2>
+    </div>
+  </div>
+
+  <div style="display: none;" id="multiplayerJoin">
+    <h1>Waiting To Start...</h1>
+    <h1 id="host"></h1>
+    <div class="outerBoxDiv" style="padding-top: 0.5em; padding-bottom: 1em;" id="usernames2">
+      <h2 style="font-size: 1.7em;">Players</h2>
+    </div>
+  </div>
+
+  <div style="display: none;" id="multiplayerMenu">
+    <button class="optionButton" id="joinSession" onclick="joinSession()">Join Session</button>
+    <button class="optionButton" id="createSession" onclick="newSession()">New Session</button>
+  </div>
+
+  <script>
+    async function multiplayerStart() {
+      ws = new WebSocket("wss://api.rottingpears.com/")
+
+      ws.onmessage = function() {
+        getById("multiplayer").style.display = "none"
+        getById("round").style.display = "none"
+        getById("cards").style.display = "none"
+        getById("multiplayerMenu").style.display = "block"
+      }
+    }
+  </script>
+
+  <script src="../generatecard.js"></script>
+  <script src="../utility.js"></script>
+  <script src="../pearnet.js"></script>
+  <script src="multiplayer.js"></script>
+  <script src="hostlib.js"></script>
+  <script src="pleblib.js"></script>
+  <script src="../index.js"></script>
+</body>
+</html>
